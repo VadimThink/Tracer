@@ -3,11 +3,11 @@ using Newtonsoft.Json;
 
 namespace TracerLibrary
 {
-    public class JsonSerializerAdapter
+    public class JsonSerializerAdapter : ISerializer
     {
         public void Serialize(object o, StreamWriter stream)
         {
-            JsonSerializer serializer = new JsonSerializer()
+            var serializer = new JsonSerializer()
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 Formatting = Formatting.Indented

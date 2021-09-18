@@ -1,9 +1,7 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace TracerLibrary
@@ -22,10 +20,8 @@ namespace TracerLibrary
         public TraceResult(Dictionary<Thread, List<MethodTraceResult>> value)
         {
             Threads = new List<ThreadInfo>();
-            foreach (var thread in value)
+            foreach (var threadInfo in value.Select(thread => new ThreadInfo(thread.Key, thread.Value)))
             {
-                ThreadInfo threadInfo = new ThreadInfo(thread.Key, thread.Value);
-                
                 Threads.Add(threadInfo);
             }
         }

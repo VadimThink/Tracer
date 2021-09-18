@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Xml.Serialization;
 
@@ -8,12 +7,12 @@ namespace TracerLibrary
     public class ThreadInfo
     {
         [XmlAttribute]
-        public int Id { get; set; }
+        private int Id { get; set; }
         [XmlAttribute]
-        public string Time { get; set; }
+        private string Time { get; set; }
 
         [XmlElement("method")]
-        public List<MethodInfo> methods { get; }
+        private List<MethodInfo> Methods { get; }
 
         public ThreadInfo()
         {
@@ -22,12 +21,12 @@ namespace TracerLibrary
         public ThreadInfo(Thread thread, List<MethodTraceResult> methodsResult)
         {
             Id = thread.ManagedThreadId;
-            methods = new List<MethodInfo>();
+            Methods = new List<MethodInfo>();
             long time = 0;
             foreach (var methodResult in methodsResult)
             {
-                time += methodResult.Stopwatch.ElapsedMilliseconds;
-                methods.Add(new MethodInfo(methodResult));
+                time += methodResult._Stopwatch.ElapsedMilliseconds;
+                Methods.Add(new MethodInfo(methodResult));
             }
 
             this.Time = time + "ms";
@@ -35,7 +34,7 @@ namespace TracerLibrary
 
         public void AddMethod(MethodInfo method)
         {
-            methods.Add(method);
+            Methods.Add(method);
         }
     }
 }

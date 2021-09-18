@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISerializer.cs" />
     <Compile Include="JsonSerializerAdapter.cs" />
     <Compile Include="MethodInfo.cs" />
     <Compile Include="MethodTraceResult.cs" />
