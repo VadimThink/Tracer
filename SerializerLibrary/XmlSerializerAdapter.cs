@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace TracerLibrary
+namespace SerializerLibrary
 {
     public class XmlSerializerAdapter : ISerializer
     {

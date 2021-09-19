@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace TracerLibrary
+namespace SerializerLibrary
 {
     public interface ISerializer
     {
