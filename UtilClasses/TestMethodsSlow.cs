@@ -4,30 +4,15 @@ using TracerLibrary;
 
 namespace UtilClasses
 {
-    public class TestMethods
+    public class TestMethodsSlow
     {
-        private readonly ITracer _tracer;
+        private ITracer _tracer;
 
-        public TestMethods(ITracer tracer)
+        public TestMethodsSlow(ITracer tracer)
         {
             _tracer = tracer;
         }
-
-        public void FastestMethod()
-        {
-            _tracer.StartTrace();
-            Console.WriteLine("Fastest method");
-            _tracer.StopTrace();
-        }
-
-        public void NormalMethod()
-        {
-            _tracer.StartTrace();
-            Thread.Sleep(50);
-            Console.WriteLine("Normal method");
-            _tracer.StopTrace();
-        }
-
+        
         public void SlowMethod()
         {
             _tracer.StartTrace();
@@ -41,6 +26,7 @@ namespace UtilClasses
             _tracer.StartTrace();
             Thread.Sleep(150);
             Console.WriteLine("Slowest method");
+            SlowMethod();
             _tracer.StopTrace();
         }
     }

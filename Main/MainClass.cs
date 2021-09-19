@@ -11,18 +11,13 @@ namespace Main
     {
         private static ITracer _tracer;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             _tracer = new Tracer();
-            TestMethods testMethods = new TestMethods(_tracer);
-            var fastestThread = new Thread(testMethods.FastestMethod);
-            var normalThread = new Thread(testMethods.NormalMethod);
-            var slowThread = new Thread(testMethods.SlowMethod);
-            var slowestThread = new Thread(testMethods.SlowestMethod);
-            fastestThread.Start();
-            normalThread.Start();
-            slowThread.Start();
-            slowestThread.Start();
+            var thread = new Thread(StartNormalMethod);
+            thread.Start();
+            StartSlowestMethod();
+            thread.Join();
 
             Printer printer = new Printer();
             printer.AddSerializer(new JsonSerializerAdapter());
@@ -31,6 +26,18 @@ namespace Main
             printer.AddStreamToFile("output.txt");
             printer.Print(_tracer.GetTraceResult());
             Console.ReadKey();
+        }
+
+        public static void StartNormalMethod()
+        {
+            TestMethodsFast fast = new TestMethodsFast(_tracer);
+            fast.NormalMethod();
+        }
+
+        public static void StartSlowestMethod()
+        {
+            TestMethodsSlow slow = new TestMethodsSlow(_tracer);
+            slow.SlowestMethod();
         }
 
     }

@@ -36,7 +36,7 @@ namespace TracerLibrary
             currentMethodTrace._Name = callerMethod.Name;
             currentMethodTrace._Stopwatch = new Stopwatch();
             currentMethodTrace._Stopwatch.Start();
-            
+            ProcessingQueries[Thread.CurrentThread].Push(currentMethodTrace);
         }
 
         public void StopTrace()
