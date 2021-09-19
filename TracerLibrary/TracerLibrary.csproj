@@ -50,6 +50,7 @@
     <Compile Include="MethodInfo.cs" />
     <Compile Include="MethodTraceResult.cs" />
     <Compile Include="ThreadInfo.cs" />
+    <Compile Include="Tracer.cs" />
     <Compile Include="TraceResult.cs" />
     <Compile Include="ITracer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,6 +12,8 @@ namespace TracerLibrary
         private string ClassType;
         private List<MethodTraceResult> Methods;
 
+        public MethodTraceResult()
+        {}
         public MethodTraceResult(Stopwatch stopwatch, string name, string classType, List<MethodTraceResult> methods)
         {
             Stopwatch = stopwatch;
