@@ -55,6 +55,24 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Main\Main.csproj">
+      <Project>{c509d975-a675-4cd6-a742-c9410fe74ae2}</Project>
+      <Name>Main</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SerializerLibrary\SerializerLibrary.csproj">
+      <Project>{e310d017-83d0-4a80-8238-8025fe23ef37}</Project>
+      <Name>SerializerLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TracerLibrary\TracerLibrary.csproj">
+      <Project>{2334bf55-3f72-4ba9-8be7-61811178db96}</Project>
+      <Name>TracerLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UtilClasses\UtilClasses.csproj">
+      <Project>{517f118e-eb4e-47ea-82a4-a809eb182737}</Project>
+      <Name>UtilClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

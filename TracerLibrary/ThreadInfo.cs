@@ -6,35 +6,54 @@ namespace TracerLibrary
 {
     public class ThreadInfo
     {
-        [XmlAttribute]
-        private int Id { get; set; }
-        [XmlAttribute]
-        private string Time { get; set; }
+        [XmlAttribute] 
+        private int _id;
 
-        [XmlElement("method")]
-        private List<MethodInfo> Methods { get; }
+        [XmlAttribute] 
+        private string _time;
 
+        [XmlElement("method")] 
+        private List<MethodInfo> _methods;
+        
         public ThreadInfo()
         {
         }
 
+        public int Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+
+        public string Time
+        {
+            get => _time;
+            set => _time = value;
+        }
+
+        public List<MethodInfo> Methods
+        {
+            get => _methods;
+            set => _methods = value;
+        }
+
         public ThreadInfo(Thread thread, List<MethodTraceResult> methodsResult)
         {
-            Id = thread.ManagedThreadId;
-            Methods = new List<MethodInfo>();
+            _id = thread.ManagedThreadId;
+            _methods = new List<MethodInfo>();
             long time = 0;
             foreach (var methodResult in methodsResult)
             {
                 time += methodResult.Stopwatch.ElapsedMilliseconds;
-                Methods.Add(new MethodInfo(methodResult));
+                _methods.Add(new MethodInfo(methodResult));
             }
 
-            Time = time + "ms";
+            _time = time + "ms";
         }
 
         public void AddMethod(MethodInfo method)
         {
-            Methods.Add(method);
+            _methods.Add(method);
         }
     }
 }

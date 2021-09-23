@@ -8,21 +8,25 @@ namespace TracerLibrary
     [XmlRoot]
     public class TraceResult
     {
-        [XmlElement("thread")]
-        private List<ThreadInfo> Threads { get; }
+        [XmlElement("thread")] 
+        private List<ThreadInfo> _threads;
 
         public TraceResult()
+        { }
+
+        public List<ThreadInfo> Threads
         {
-            
+            get => _threads;
+            set => _threads = value;
         }
 
         public TraceResult(Dictionary<Thread, List<MethodTraceResult>> value)
         {
-            Threads = new List<ThreadInfo>();
+            _threads = new List<ThreadInfo>();
             foreach (var thread in value)
             {
                 ThreadInfo threadInfo = new ThreadInfo(thread.Key, thread.Value);
-                Threads.Add(threadInfo);
+                _threads.Add(threadInfo);
             }
         }
         
