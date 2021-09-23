@@ -25,11 +25,11 @@ namespace TracerLibrary
             long time = 0;
             foreach (var methodResult in methodsResult)
             {
-                time += methodResult._Stopwatch.ElapsedMilliseconds;
+                time += methodResult.Stopwatch.ElapsedMilliseconds;
                 Methods.Add(new MethodInfo(methodResult));
             }
 
-            this.Time = time + "ms";
+            Time = time + "ms";
         }
 
         public void AddMethod(MethodInfo method)

@@ -6,25 +6,26 @@ namespace TracerLibrary
 {
     public class Tracer : ITracer
     {
-        private Dictionary<Thread, Stack<MethodTraceResult>> ProcessingQueries;
+        private Dictionary<Thread, Stack<MethodTraceResult>> _processingQueries;
 
-        private Dictionary<Thread, List<MethodTraceResult>> FinishedQueries;
+        private Dictionary<Thread, List<MethodTraceResult>> _finishedQueries;
 
         public Tracer()
         {
-            ProcessingQueries = new Dictionary<Thread, Stack<MethodTraceResult>>();
-            FinishedQueries = new Dictionary<Thread, List<MethodTraceResult>>();
+            _processingQueries = new Dictionary<Thread, Stack<MethodTraceResult>>();
+            _finishedQueries = new Dictionary<Thread, List<MethodTraceResult>>();
         }
 
 
         public void StartTrace()
         {
-            lock (ProcessingQueries)
+            var currentThread = Thread.CurrentThread;
+            lock (_processingQueries)
             {
-                var currentThread = Thread.CurrentThread;
-                if (!ProcessingQueries.ContainsKey(currentThread))
+                
+                if (!_processingQueries.ContainsKey(currentThread))
                 {
-                    ProcessingQueries.Add(currentThread, new Stack<MethodTraceResult>());
+                    _processingQueries.Add(currentThread, new Stack<MethodTraceResult>());
                 }
             }
 
@@ -32,46 +33,46 @@ namespace TracerLibrary
             var callerMethod = stackTrace.GetFrame(1).GetMethod();
             var currentMethodTrace = new MethodTraceResult();
 
-            currentMethodTrace._ClassType = callerMethod.ReflectedType.Name;
-            currentMethodTrace._Name = callerMethod.Name;
-            currentMethodTrace._Stopwatch = new Stopwatch();
-            currentMethodTrace._Stopwatch.Start();
-            ProcessingQueries[Thread.CurrentThread].Push(currentMethodTrace);
+            currentMethodTrace.ClassType = callerMethod.ReflectedType.Name;
+            currentMethodTrace.Name = callerMethod.Name;
+            currentMethodTrace.Stopwatch = new Stopwatch();
+            currentMethodTrace.Stopwatch.Start();
+            _processingQueries[currentThread].Push(currentMethodTrace);
         }
 
         public void StopTrace()
         {
-            lock (ProcessingQueries)
+            lock (_processingQueries)
             {
                 var currentThread = Thread.CurrentThread;
-                Stack <MethodTraceResult> currentStack = ProcessingQueries[currentThread];
+                Stack <MethodTraceResult> currentStack = _processingQueries[currentThread];
                 MethodTraceResult currentMethodTrace = currentStack.Pop();
-                currentMethodTrace._Stopwatch.Stop();
+                currentMethodTrace.Stopwatch.Stop();
                 if (currentStack.Count > 0)
                 {
                     MethodTraceResult fatherTrace = currentStack.Peek();
-                    if (fatherTrace._Methods == null)
+                    if (fatherTrace.Methods == null)
                     {
-                        fatherTrace._Methods = new List<MethodTraceResult>();
+                        fatherTrace.Methods = new List<MethodTraceResult>();
                     }
                     
-                    fatherTrace._Methods.Add(currentMethodTrace);
+                    fatherTrace.Methods.Add(currentMethodTrace);
                 }
                 else
                 {
-                    if (!FinishedQueries.ContainsKey(currentThread))
+                    if (!_finishedQueries.ContainsKey(currentThread))
                     {
-                        FinishedQueries.Add(currentThread, new List<MethodTraceResult>());
+                        _finishedQueries.Add(currentThread, new List<MethodTraceResult>());
                     }
                     
-                    FinishedQueries[currentThread].Add(currentMethodTrace);
+                    _finishedQueries[currentThread].Add(currentMethodTrace);
                 }
             }
         }
 
         public TraceResult GetTraceResult()
         {
-            return new TraceResult(FinishedQueries);
+            return new TraceResult(_finishedQueries);
         }
     }
 }

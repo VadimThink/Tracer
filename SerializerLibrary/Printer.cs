@@ -5,36 +5,36 @@ namespace SerializerLibrary
 {
     public class Printer
     {
-        private List<ISerializer> Serializers;
-        private List<StreamWriter> StreamWriters;
+        private List<ISerializer> _serializers;
+        private List<StreamWriter> _streamWriters;
 
         public Printer()
         {
-            Serializers = new List<ISerializer>();
-            StreamWriters = new List<StreamWriter>();
+            _serializers = new List<ISerializer>();
+            _streamWriters = new List<StreamWriter>();
         }
 
         public void AddStream(Stream stream)
         {
-            StreamWriters.Add(new StreamWriter(stream));
+            _streamWriters.Add(new StreamWriter(stream));
         }
 
         public void AddStreamToFile(string fileName)
         {
             FileStream fileStream = File.Create(fileName);
-            StreamWriters.Add(new StreamWriter(fileStream));
+            _streamWriters.Add(new StreamWriter(fileStream));
         }
 
         public void AddSerializer(ISerializer serializer)
         {
-            Serializers.Add(serializer);
+            _serializers.Add(serializer);
         }
 
         public void Print(object data)
         {
-            foreach (var serializer in Serializers)
+            foreach (var serializer in _serializers)
             {
-                foreach (var streamWriter in StreamWriters)
+                foreach (var streamWriter in _streamWriters)
                 {
                     serializer.Serialize(data, streamWriter);
                 }

@@ -19,8 +19,9 @@ namespace TracerLibrary
         public TraceResult(Dictionary<Thread, List<MethodTraceResult>> value)
         {
             Threads = new List<ThreadInfo>();
-            foreach (var threadInfo in value.Select(thread => new ThreadInfo(thread.Key, thread.Value)))
+            foreach (var thread in value)
             {
+                ThreadInfo threadInfo = new ThreadInfo(thread.Key, thread.Value);
                 Threads.Add(threadInfo);
             }
         }

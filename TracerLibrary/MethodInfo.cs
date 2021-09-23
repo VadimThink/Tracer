@@ -22,12 +22,12 @@ namespace TracerLibrary
 
         public MethodInfo(MethodTraceResult methodTraceResult)
         {
-            Name = methodTraceResult._Name;
-            Time = methodTraceResult._Stopwatch.ElapsedMilliseconds + "ms";
-            ClassName = methodTraceResult._ClassType;
+            Name = methodTraceResult.Name;
+            Time = methodTraceResult.Stopwatch.ElapsedMilliseconds + "ms";
+            ClassName = methodTraceResult.ClassType;
             Methods = new List<MethodInfo>();
-            if (methodTraceResult._Methods == null) return;
-            foreach (var childTraceResult in methodTraceResult._Methods)
+            if (methodTraceResult.Methods == null) return;
+            foreach (var childTraceResult in methodTraceResult.Methods)
             {
                 Methods.Add(new MethodInfo(childTraceResult));
             }

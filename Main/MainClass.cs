@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using SerializerLibrary;
 using TracerLibrary;
@@ -16,7 +15,8 @@ namespace Main
             _tracer = new Tracer();
             var thread = new Thread(StartNormalMethod);
             thread.Start();
-            StartSlowestMethod();
+            TestMethodsSlow slow = new TestMethodsSlow(_tracer);
+            slow.SlowestMethod();
             thread.Join();
 
             Printer printer = new Printer();
@@ -32,12 +32,6 @@ namespace Main
         {
             TestMethodsFast fast = new TestMethodsFast(_tracer);
             fast.NormalMethod();
-        }
-
-        public static void StartSlowestMethod()
-        {
-            TestMethodsSlow slow = new TestMethodsSlow(_tracer);
-            slow.SlowestMethod();
         }
 
     }

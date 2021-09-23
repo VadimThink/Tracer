@@ -16,16 +16,16 @@ namespace UtilClasses
         public void SlowMethod()
         {
             _tracer.StartTrace();
-            Thread.Sleep(100);
             Console.WriteLine("Slow method");
+            Thread.Sleep(100);
             _tracer.StopTrace();
         }
 
         public void SlowestMethod()
         {
             _tracer.StartTrace();
-            Thread.Sleep(150);
             Console.WriteLine("Slowest method");
+            Thread.Sleep(150);
             SlowMethod();
             _tracer.StopTrace();
         }

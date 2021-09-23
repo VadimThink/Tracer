@@ -7,43 +7,43 @@ namespace TracerLibrary
     [Serializable]
     public class MethodTraceResult
     {
-        private Stopwatch Stopwatch;
-        private string Name;
-        private string ClassType;
-        private List<MethodTraceResult> Methods;
+        private Stopwatch _stopwatch;
+        private string _name;
+        private string _classType;
+        private List<MethodTraceResult> _methods;
 
         public MethodTraceResult()
         {}
         public MethodTraceResult(Stopwatch stopwatch, string name, string classType, List<MethodTraceResult> methods)
         {
-            Stopwatch = stopwatch;
-            Name = name;
-            ClassType = classType;
-            Methods = methods;
+            _stopwatch = stopwatch;
+            _name = name;
+            _classType = classType;
+            _methods = methods;
         }
 
-        public Stopwatch _Stopwatch
+        public Stopwatch Stopwatch
         {
-            get => Stopwatch;
-            set => Stopwatch = value;
+            get => _stopwatch;
+            set => _stopwatch = value;
         }
 
-        public string _Name
+        public string Name
         {
-            get => Name;
-            set => Name = value;
+            get => _name;
+            set => _name = value;
         }
 
-        public string _ClassType
+        public string ClassType
         {
-            get => ClassType;
-            set => ClassType = value;
+            get => _classType;
+            set => _classType = value;
         }
 
-        public List<MethodTraceResult> _Methods
+        public List<MethodTraceResult> Methods
         {
-            get => Methods;
-            set => Methods = value;
+            get => _methods;
+            set => _methods = value;
         }
     }
 }
